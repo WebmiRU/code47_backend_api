@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\DockerRegistry;
+use App\Http\Controllers\Auth\DockerRegistryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.', 'prefix' => 'auth'], function () {
     Route::group(['prefix' => 'docker-registry', 'as' => 'docker-registry.'], function () {
-        Route::get('pull', [DockerRegistry::class, 'pull'])->name('pull');
-        Route::get('push', [DockerRegistry::class, 'push'])->name('push');
+        Route::get('pull', [DockerRegistryController::class, 'pull'])->name('pull');
+        Route::get('push', [DockerRegistryController::class, 'push'])->name('push');
     });
 });

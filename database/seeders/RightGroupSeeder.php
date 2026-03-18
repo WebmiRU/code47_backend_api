@@ -16,5 +16,15 @@ class RightGroupSeeder extends Seeder
             'key' => 'docker.registry',
             'title' => 'Реестр докер-образов',
         ]);
+
+        RightGroup::create([
+            'key' => 'project',
+            'title' => 'Проекты',
+        ]);
+
+//        RightGroup::create([
+//            'key' => 'project-group',
+//            'title' => 'Группы проектов',
+//        ]);
     }
 }
