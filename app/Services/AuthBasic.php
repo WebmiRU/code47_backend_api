@@ -13,7 +13,7 @@ class AuthBasic implements AuthContract
         $user = User::where('login', $login)->first();
 
         if ($user && Hash::check($password, $user->password)) {
-            dd($user, $action, $entity);
+//            dd($user, $action, $entity);
             return true;
         }
 

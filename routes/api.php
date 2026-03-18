@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.', 'prefix' => 'auth'], function () {
     Route::group(['prefix' => 'docker-registry', 'as' => 'docker-registry.'], function () {
-        Route::get('pull', [DockerRegistryController::class, 'pull'])->name('pull');
-        Route::get('push', [DockerRegistryController::class, 'push'])->name('push');
+        Route::get('/', [DockerRegistryController::class, 'index'])->name('index');
     });
 });

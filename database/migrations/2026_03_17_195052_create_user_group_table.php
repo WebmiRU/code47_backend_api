@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_group', function (Blueprint $table) {
             $table->id();
+            $table->string('key', 64)->unique();
             $table->text('title');
             $table->timestamps();
         });
