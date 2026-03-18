@@ -9,5 +9,5 @@ interface AuthContract
     /**
      * Описываем метод, который должен быть у любого сервиса авторизации
      */
-    public function check(string $login, string $password, string $right, string $entity): bool;
+    public function check(string $login, string $password, string $action, string $entity): bool;
 }

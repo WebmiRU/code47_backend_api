@@ -13,14 +13,14 @@ class DockerRegistryController extends Controller
     {
         $login = $request->getUser();
         $password = $request->getPassword();
-        $right = 'pull';
+        $action = $request->input('action');
         $entity = $request->input('entity');
 
         return new AuthResource([
             'login' => $login,
-            'right' => $right,
+            'action' => $action,
             'entity' => $entity,
-            'allow' => $auth->check($login, $password, $right, $entity),
+            'allow' => $auth->check($login, $password, $action, $entity),
         ]);
     }
 

@@ -5,6 +5,12 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property string $login
+ * @property string $action
+ * @property string $entity
+ * @property mixed $allow
+ */
 class AuthResource extends JsonResource
 {
     /**
@@ -16,7 +22,7 @@ class AuthResource extends JsonResource
     {
         return [
             'login' => $this->login,
-            'right' => $this->right,
+            'action' => $this->action,
             'entity' => $this->entity,
             'allow' => $this->allow,
         ];
