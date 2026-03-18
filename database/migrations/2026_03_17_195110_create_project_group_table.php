@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project', function (Blueprint $table) {
+        Schema::create('project_group', function (Blueprint $table) {
             $table->id();
             $table->text('key')->unique();
             $table->text('title');
-            $table->unsignedBigInteger('group_id')->nullable();
             $table->timestamps();
-
-            $table->foreign('group_id')
-                ->references('id')
-                ->on('project_group')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 

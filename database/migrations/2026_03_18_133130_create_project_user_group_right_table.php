@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('project_user_group_right', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id')->index();
+//            $table->unsignedBigInteger('project_app_id')->index();
             $table->unsignedBigInteger('user_group_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('right_id')->index();
             $table->timestamps();
 
@@ -25,15 +25,15 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+//            $table->foreign('project_app_id')
+//                ->references('id')
+//                ->on('project')
+//                ->onUpdate('cascade')
+//                ->onDelete('cascade');
+
             $table->foreign('user_group_id')
                 ->references('id')
                 ->on('user_group')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('user')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -50,6 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_group');
+        Schema::dropIfExists('project_app_user_group_right');
     }
 };

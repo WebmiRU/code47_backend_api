@@ -3,34 +3,32 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
-use App\Models\ProjectGroup;
 use Illuminate\Database\Seeder;
 
-class ProjectSeeder extends Seeder
+class ProjectUserGroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $projectGroup1 = ProjectGroup::where('key', 'project-project-1')->first();
+//        $project1 = Project::where('key', 'project-1')->first();
+//        $project2 = Project::where('key', 'project-2')->first();
+//        $project3 = Project::where('key', 'project-3')->first();
 
         Project::create([
             'key' => 'project-1',
             'title' => 'Проект 1',
-            'group_id' => null,
         ]);
 
         Project::create([
             'key' => 'project-2',
             'title' => 'Проект 2',
-            'group_id' => $projectGroup1->id,
         ]);
 
         Project::create([
             'key' => 'project-3',
             'title' => 'Проект 3',
-            'group_id' => $projectGroup1->id,
         ]);
     }
 }
