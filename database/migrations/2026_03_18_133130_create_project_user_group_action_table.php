@@ -50,6 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_app_user_group_action');
+        Schema::dropIfExists('project_user_group_action');
     }
 };
