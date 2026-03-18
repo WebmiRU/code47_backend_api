@@ -15,7 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('key', 64)->unique();
             $table->text('title')->nullable();
+            $table->unsignedBigInteger('group_id')->nullable()->index();
             $table->timestamps();
+
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('right_group')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

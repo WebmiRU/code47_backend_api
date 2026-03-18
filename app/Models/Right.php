@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Right extends Model
 {
@@ -11,4 +12,8 @@ class Right extends Model
         'key',
         'title',
     ];
+
+    public function group(): BelongsTo {
+        return $this->belongsTo(RightGroup::class, 'group_id', 'id');
+    }
 }
