@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class RightGroup extends Model
+class ActionGroup extends Model
 {
-    protected $table = 'right_group';
+    protected $table = 'action_group';
     protected $fillable = [
         'key',
         'title',
     ];
 
-    public function rights(): HasMany {
-        return $this->hasMany(Right::class, 'group_id', 'id');
+    public function actions(): HasMany {
+        return $this->hasMany(Action::class, 'group_id', 'id');
     }
 }

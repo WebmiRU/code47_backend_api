@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProjectGroupSeeder::class,
             ProjectSeeder::class,
-            RightGroupSeeder::class,
-            RightSeeder::class,
+            ActionGroupSeeder::class,
+            ActionSeeder::class,
         ]);
     }
 }

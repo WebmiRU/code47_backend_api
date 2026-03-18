@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('right_group', function (Blueprint $table) {
+        Schema::create('action_group', function (Blueprint $table) {
             $table->id();
             $table->string('key', 64)->unique();
             $table->text('title')->nullable();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('right');
+        Schema::dropIfExists('action');
     }
 };

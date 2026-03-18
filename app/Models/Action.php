@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Right extends Model
+class Action extends Model
 {
-    protected $table = 'right';
+    protected $table = 'action';
     protected $fillable = [
         'key',
         'title',
     ];
 
     public function group(): BelongsTo {
-        return $this->belongsTo(RightGroup::class, 'group_id', 'id');
+        return $this->belongsTo(ActionGroup::class, 'group_id', 'id');
     }
 }

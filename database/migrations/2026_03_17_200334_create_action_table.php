@@ -11,21 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_m2m_right', function (Blueprint $table) {
+        Schema::create('action', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_id')->index();
-            $table->unsignedBigInteger('right_id')->index();
+            $table->string('key', 64)->unique();
+            $table->text('title')->nullable();
+            $table->unsignedBigInteger('group_id')->nullable()->index();
             $table->timestamps();
 
-            $table->foreign('project_id')
+            $table->foreign('group_id')
                 ->references('id')
-                ->on('project')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('right_id')
-                ->references('id')
-                ->on('right')
+                ->on('action_group')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_m2m_right');
+        Schema::dropIfExists('action');
     }
 };
