@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('project_app', function (Blueprint $table) {
             $table->id();
             $table->string('key', 64)->index();
+            $table->text('title')->index();
             $table->unsignedBigInteger('project_id')->index();
             $table->timestamps();
 

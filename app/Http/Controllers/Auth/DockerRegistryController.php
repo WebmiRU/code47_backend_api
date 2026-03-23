@@ -26,7 +26,6 @@ class DockerRegistryController extends Controller
                 'allow' => $allow,
             ]);
         }
-        dd(1);
 
         [$project] = explode('/', $entity);
 
@@ -34,7 +33,7 @@ class DockerRegistryController extends Controller
             $allow = $auth->check($login, $action, $project);
         }
 
-        dd('ACTION', $project);
+//        dd('ACTION', $project);
 
 
         return new AuthResource([

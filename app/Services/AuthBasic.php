@@ -24,7 +24,7 @@ class AuthBasic implements AuthContract
     {
         $userProjectAction = UserProjectAction::query()
             ->where('login', $login)
-            ->where('action', $action)
+            ->where('action_key', "docker.registry.{$action}")
             ->where('project_key', $project)
             ->first();
 

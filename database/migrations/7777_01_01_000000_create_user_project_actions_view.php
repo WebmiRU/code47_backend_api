@@ -25,6 +25,10 @@ return new class extends Migration
             LEFT JOIN project ON project.id = project_user_action.project_id
             LEFT JOIN action ON action.id = project_user_action.action_id
                           OR project_user_group_action.action_id = action.id
+            WHERE
+                login IS NOT NULL
+                AND project.id IS NOT NULL
+                AND action.key IS NOT NULL
         ');
     }
 
