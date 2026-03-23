@@ -9,7 +9,7 @@ return new class extends Migration
     {
         // Создаем View
         DB::statement('
-            CREATE OR REPLACE VIEW user_project_actions AS
+            CREATE OR REPLACE VIEW user_project_action AS
             SELECT
                 "user".id AS user_id,
                 "user".login,
@@ -31,6 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         // Удаляем View при откате миграции
-        DB::statement('DROP VIEW IF EXISTS user_project_actions');
+        DB::statement('DROP VIEW IF EXISTS user_project_action');
     }
 };

@@ -6,8 +6,6 @@ use App\Models\User;
 
 interface AuthContract
 {
-    /**
-     * Описываем метод, который должен быть у любого сервиса авторизации
-     */
-    public function check(string $login, string $password, string $action, string $entity): bool;
+    public function login(string $login, string $password): int;
+    public function check(string $login, string $action, string $project): bool;
 }
