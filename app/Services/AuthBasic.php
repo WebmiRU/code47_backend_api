@@ -22,11 +22,29 @@ class AuthBasic implements AuthContract
 
     public function check(string $login, string $action, string $project): bool
     {
-        $userProjectAction = UserProjectAction::query()
-            ->where('login', $login)
-            ->where('action_key', "docker.registry.{$action}")
-            ->where('project_key', $project)
-            ->first();
+        $userProjectAction = null;
+
+        switch ($action) {
+            case 'pull':
+                $userProjectAction = UserProjectAction::query()
+                    ->where('login', $login)
+                    ->where(function ($query) use ($action) {
+                        $query
+                            ->where('action_key', '=', 'docker.registry.push')
+                            ->orWhere('action_key', '=', 'docker.registry.pull');
+                    })
+                    ->where('project_key', $project)
+                    ->first();
+                break;
+
+            case 'push':
+                $userProjectAction = UserProjectAction::query()
+                    ->where('login', $login)
+                    ->where('action_key', 'docker.registry.push')
+                    ->where('project_key', $project)
+                    ->first();
+                break;
+        }
 
         return (bool)$userProjectAction;
     }
