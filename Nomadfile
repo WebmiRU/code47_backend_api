@@ -1,0 +1,84 @@
+job "nginx-static" {
+  datacenters = ["dc1"]
+
+  group "web" {
+    network {
+      mode = "bridge"
+      port "http" { to = 80 }
+    }
+
+    service {
+      name     = "nginx-static"
+      port     = "http"
+      provider = "nomad"
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.static.rule=Host(`b220.ru`)",
+        "traefik.http.routers.static.entrypoints=websecure",
+        "traefik.http.routers.static.tls=true",
+        "traefik.http.routers.static.tls.certresolver=myresolver"
+      ]
+    }
+
+    # Задача с PHP: именно она качает и распаковывает код
+    task "php" {
+      driver = "docker"
+
+      artifact {
+        # Префикс git:: обязателен, чтобы Nomad не пытался скачать это как файл
+        source      = "git::https://github.com/WebmiRU/nomad_test.git"
+        destination = "local/repo"
+
+        options {
+          # Можно указать конкретную ветку, тег или хеш коммита
+          ref = "master"
+          # Если репозиторий большой, можно скачать только последний коммит
+          depth = 1
+        }
+      }
+
+      config {
+        image = "php:8.2-fpm-alpine"
+        # Монтируем свою же папку local, куда упал артефакт
+        volumes = [
+          "local/repo:/var/www/html"
+        ]
+      }
+    }
+
+    # Задача с Nginx: она просто берет файлы из папки соседа
+    task "server" {
+      driver = "docker"
+
+      config {
+        image = "nginx:alpine"
+        volumes = [
+          "local/nginx.conf:/etc/nginx/conf.d/default.conf",
+          # МАГИЯ ТУТ: монтируем папку local из задачи "php" в этот контейнер
+          "../php/local/repo:/var/www/html"
+        ]
+      }
+
+      template {
+        data = <<EOH
+server {
+    listen 80;
+    root /var/www/html;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+EOH
+        destination = "local/nginx.conf"
+      }
+    }
+  }
+}
