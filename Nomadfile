@@ -26,14 +26,12 @@ job "nginx-static" {
 
       artifact {
         # Префикс git:: обязателен, чтобы Nomad не пытался скачать это как файл
-        source      = "git::https://github.com/WebmiRU/nomad_test.git"
+        source      = "git::https://github.com/WebmiRU/code47_backend_api.git"
         destination = "local/repo"
 
         options {
-          # Можно указать конкретную ветку, тег или хеш коммита
-          ref = "master"
-          # Если репозиторий большой, можно скачать только последний коммит
-          depth = 1
+          ref = "dev" # Можно указать конкретную ветку, тег или хеш коммита
+          depth = 1 # Если репозиторий большой, можно скачать только последний коммит
         }
       }
 
@@ -63,7 +61,7 @@ job "nginx-static" {
         data = <<EOH
 server {
     listen 80;
-    root /var/www/html;
+    root /var/www/html/public;
     index index.php index.html;
 
     location / {

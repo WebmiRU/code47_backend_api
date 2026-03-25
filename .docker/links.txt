@@ -1,0 +1,30 @@
+helm repo add traefik https://traefik.github.io/charts
+helm repo update
+
+helm install traefik traefik/traefik \
+  --namespace traefik --create-namespace \
+  --version 40.0.0-ea.2 \
+  --set deployment.kind=DaemonSet \
+  --set service.enabled=true \
+  --set service.type=ClusterIP \
+  --set ingressClass.enabled=true \
+  --set ports.web.port=80 \
+  --set ports.web.hostPort=80 \
+  --set ports.websecure.port=443 \
+  --set ports.websecure.hostPort=443 \
+  --set ports.traefik.port=9000 \
+  --set ports.traefik.expose.default=true \
+  --set securityContext.capabilities.add="{NET_BIND_SERVICE}" \
+  --set podSecurityContext.runAsUser=0 \
+  --set podSecurityContext.runAsNonRoot=false \
+  --set additionalArguments="{--api.insecure=true,--api.dashboard=true}"
+
+----------
+
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+
+helm install cert-manager jetstack/cert-manager \
+  --namespace cert-manager --create-namespace \
+  --version v1.20.0 \
+  --set installCRDs=true
